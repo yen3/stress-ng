@@ -1,4 +1,4 @@
-FROM debian:jessie as builder
+FROM arm64v8/debian:jessie as builder
 
 # intall gcc and supporting packages
 RUN apt-get update && apt-get install -yq make gcc
@@ -16,7 +16,7 @@ WORKDIR /code/stress-ng
 RUN STATIC=1 make
 
 # Final image
-FROM alpine:3.6
+FROM arm64v8/alpine:3.6
 
 COPY --from=builder /code/stress-ng/stress-ng /usr/local/bin
 
